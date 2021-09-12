@@ -1,0 +1,55 @@
+*
+{
+  margin: 0;
+  padding: 0;
+}
+
+.BrandName
+{
+  text-align: center;
+}
+
+
+nav
+{
+  display: block;
+}
+
+li a
+{
+  list-style: none;
+  text-decoration: none;
+  padding: 8px 16px;
+  display: block;
+  width: 100px;
+  border-bottom: 0.5px black solid;
+  border-right: 0.5px black solid;
+  color:#121212;
+}
+
+.humburger
+{
+  width: 30px;
+}
+
+
+span
+{
+  display: block;
+  padding-top: 7px;
+  border-bottom: solid black 1px;
+}
+
+li a:hover {
+  background-color: gray;
+  color:#FFFFFF;
+  animation-name: hover;
+  animation-duration: 0.5s;
+}
+
+/*Animations*/
+
+@keyframes hover {
+  from {color:black;background-color: white}
+  to {color:#FFFFFF;background-color: gray}
+}
