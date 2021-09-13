@@ -4,16 +4,60 @@
   padding: 0;
 }
 
-.BrandName
+  .BrandSearch
 {
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
 }
 
+
+.Search input[type="text"]
+{
+  width: 300px;
+  height: 20px;
+}
+
+.Search input[type="button"]
+{
+  height: 24px;
+  width: 30px;
+}
+
+.Search input[type="button"]:hover
+{
+  cursor: pointer;
+
+}
+
+
+.Search
+{
+  padding-top: 0.5em;
+}
 
 nav
 {
   display: block;
 }
+
+.profile-edit .pfp
+{
+  height: 50px;
+  border-radius: 50%;
+  float: right;
+}
+
+.pfp:hover
+{
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.profile-edit .list-of-edits
+{
+  float: right;
+}
+
 
 li a
 {
@@ -24,6 +68,7 @@ li a
   width: 100px;
   border-bottom: 0.5px black solid;
   border-right: 0.5px black solid;
+  border-top: 0.5px black solid;
   color:#121212;
 }
 
@@ -46,10 +91,26 @@ li a:hover {
   animation-name: hover;
   animation-duration: 0.5s;
 }
+ul
+{
+  animation-name: appear;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+
+.humburger:hover
+{
+  cursor: pointer;
+}
 
 /*Animations*/
 
 @keyframes hover {
   from {color:black;background-color: white}
   to {color:#FFFFFF;background-color: gray}
+}
+
+@keyframes appear {
+  from {opacity: 0}
+  to {opacity: 1}
 }

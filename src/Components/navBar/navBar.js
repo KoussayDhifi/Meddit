@@ -2,8 +2,11 @@ import './navBar.css';
 import {useState} from 'react';
 
 const NavBar = () => {
-  const [navBarStatus,setNavaBarStatus] = useState(false);
+  //States
+  const [navBarStatus,setNavaBarStatus] = useState(true);
+  const [search,setSearch] = useState("");
 
+  //Functions for handling
   const handleBurgerClick = () => {
     if (navBarStatus)
     {
@@ -15,9 +18,29 @@ const NavBar = () => {
     }
   }
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  }
+
+
+
+
+
+  //The Page
   return (
     <div className="NavBar">
-      <h1 className="BrandName">Meddit</h1>
+      <div className="BrandSearch">
+        <h1 className="BrandName">Meddit</h1>
+        <div className="Search">
+          <input type="text" placeholder="Search..." value={search} onChange={handleSearch}/>
+          <input type="button" value="🔎"/>
+        </div>
+      </div>
+      <div className="profile-edit">
+        <img src="/Pfps/default.jpg" className="pfp"/>
+      </div>
+      <br/>
+      <hr/>
       <div className="humburger" id="humburger" onClick={handleBurgerClick}>
         <span></span>
         <span></span>
