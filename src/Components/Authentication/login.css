@@ -1,0 +1,102 @@
+.Login
+{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+
+}
+
+form
+{
+  height: 500px;
+  border-radius: 10px;
+  width: 480px;
+  border: black 1px solid;
+}
+
+
+.Login form label
+{
+  font-size: 200%;
+}
+.Login form input[type="email"]
+{
+  height: 25px;
+  width: 280px;
+  font-size: 125%;
+  border-radius: 10px;
+  background-color: #72baab;
+  color:#FFFF;
+}
+
+.Login form input[type="password"]
+{
+  height: 25px;
+  width: 280px;
+  font-size: 125%;
+  border-radius: 10px;
+  background-color: #72baab;
+  color:#FFFF;
+}
+
+.Login form input[type="submit"]
+{
+  width:120px;
+  height: 25px;
+  background-color: #cf291d;
+  color:#FFFF;
+  border-radius: 25px;
+  border-color: #cf291d;
+}
+
+.Login form input[type="submit"]:hover
+{
+  animation-name: login;
+  animation-duration: 1s;
+  cursor: pointer;
+  background-color: #FFFF;
+  color: #cf291d;
+}
+
+
+.title
+{
+  border-top: 1px #cf291d solid;
+  border-radius: 10px     10px      0       0;
+  background-color: #cf291d;
+  color:#FFFF;
+  text-align: center;
+
+}
+
+
+p
+{
+  font-size: 45%;
+}
+
+a
+{
+  text-decoration: none;
+  color:#FFF;
+}
+a:hover
+{
+  animation-name: title;
+  animation-duration: 1s;
+  color:#121212;
+}
+
+
+/*Animations*/
+
+@keyframes login {
+  from {background-color:#cf291d;color: #FFFF}
+  to {background-color: #FFFF;color:#cf291d }
+}
+
+@keyframes title {
+  from {color:#FFFF}
+  to {color:#121212}
+}
