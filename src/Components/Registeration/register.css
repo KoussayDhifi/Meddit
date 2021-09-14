@@ -1,0 +1,26 @@
+.Register
+{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.Register form input
+{
+  height: 25px;
+  width: 280px;
+  font-size: 125%;
+  border-radius: 10px;
+  background-color: #72baab;
+  color:#FFFF;
+}
+
+.Register form label
+{
+  font-size: 200%;
+}
+
+img
+{
+  width: 50px;
+}

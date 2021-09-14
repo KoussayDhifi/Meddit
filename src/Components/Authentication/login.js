@@ -1,11 +1,12 @@
 import './login.css'
+import {Link} from 'react-router-dom'
 
 const Login = () => {
       return (
         <div className="Login">
           <form>
             <div className="title">
-              <h1><a href="/login">Login</a>|<a href="/register">Register</a></h1>
+              <h1><Link to="/login"><a>Login</a></Link>|<Link to="/register"><a>Register</a></Link></h1>
             </div>
             <br/>
             <label for="email">Email:</label><br/>
