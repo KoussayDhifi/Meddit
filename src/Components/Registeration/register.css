@@ -3,6 +3,12 @@
   text-align: center;
   display: flex;
   justify-content: center;
+
+}
+
+.Register form
+{
+  height: 760px;
 }
 
 .Register form input
@@ -23,4 +29,24 @@
 img
 {
   width: 50px;
+}
+
+.Register form input[type='submit']
+{
+  background-color: #cf291d;
+}
+.Register form input[type='submit']:hover
+{
+  background-color: #FFFF;
+  color:#cf291d;
+  animation-name: button-animations;
+  animation-duration: 1s;
+  cursor: pointer;
+}
+
+
+/*Animations*/
+@keyframes button-animations {
+  from {background-color:#cf291d; color:#FFFF; }
+  to {background-color: #FFFF; color:#cf291d;}
 }
