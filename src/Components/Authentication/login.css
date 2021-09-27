@@ -88,6 +88,18 @@ a:hover
   color:#121212;
 }
 
+.eye
+{
+  position: absolute;
+  top: 160px;
+  width: 35px;
+}
+
+.eye:hover
+{
+  cursor: pointer;
+}
+
 
 /*Animations*/
 
