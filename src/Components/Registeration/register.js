@@ -61,7 +61,7 @@ const Register = () => {
         <label for="email">Email:</label><br/>
         <input type="email" id="email" className="email" placeHolder="Email" value={emailField} onChange={handleEmailChange}/><br/>
         <label for="p1">Passowrd:</label><br/>
-        <input type="password" id="p1" className="p1" placeHolder="Password" value={passwordField} onChange={handlePasswordField}/><br/>
+        <input type="password" id="p1" className="p1" placeHolder="Password" value={passwordField} onChange={handlePasswordField}/><img src='/eye/view.png' className="eye"/><br/>
         <label for="p2">Confirm Password:</label><br/>
         <input type="password" id="p2" className="p2" placeHolder="Confirm Password" value={conPasswordField} onChange={handleConPasswordField}/><br/>
         <label for="date">Date of birth:</label><br/>

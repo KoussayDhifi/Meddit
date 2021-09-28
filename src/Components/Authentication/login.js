@@ -7,7 +7,9 @@ const Login = () => {
     //States
     const [EmailField,setEmailField] = useState('')
     const [PasswordField,setPasswordField] = useState('')
-
+    const [seePassword,setSeePassword] = useState(false)
+    const [passwordType,setPasswordType] = useState('password')
+    const [eyeSrc,setEyeSrc] = useState('/eye/view.png')
 
     //Functions for handling
 
@@ -18,6 +20,21 @@ const Login = () => {
     const handlePasswordField = (e) => {
       setPasswordField(e.target.value);
     }
+
+    const handlePasswordSee = () => {
+      if (seePassword)
+      {
+        setSeePassword(false)
+        setPasswordType('password')
+        setEyeSrc('/eye/view.png')
+      }else if (seePassword == false)
+      {
+        setSeePassword(true)
+        setPasswordType('text')
+        setEyeSrc('/eye/visibility.png')
+      }
+    }
+
       return (
         <div className="Login">
           <form>
@@ -28,10 +45,10 @@ const Login = () => {
             <label for="email">Email:</label><br/>
             <input type="email" id="email" className="email" required value={EmailField} onChange={handleEmailField}/><br/>
             <label for="password">Password:</label><br/>
-            <input type="password" id="password" className="password" required value={PasswordField} onChange={handlePasswordField}/><img src="/eye/view.png" className="eye"/><br/>
+            <input type={passwordType} id="password" className="password" required value={PasswordField} onChange={handlePasswordField}/><img src={eyeSrc} className="eye" onClick = {handlePasswordSee}/><br/>
             <input type="checkbox" id="remember" className="remember"/><label class="rememberlabel" for="remember"><p>Remember Me</p></label>
             <br/>
-            <input type="submit" value="Login!"/>
+            <button type="submit">Login!</button>
           </form>
         </div>
       )
