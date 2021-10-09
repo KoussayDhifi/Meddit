@@ -45,7 +45,7 @@ const Login = () => {
             <label for="email">Email:</label><br/>
             <input type="email" id="email" className="email" required value={EmailField} onChange={handleEmailField}/><br/>
             <label for="password">Password:</label><br/>
-            <input type={passwordType} id="password" className="password" required value={PasswordField} onChange={handlePasswordField}/><img src={eyeSrc} className="eye" onClick = {handlePasswordSee}/><br/>
+            <input type={passwordType} id="password" className="password" required value={PasswordField} onChange={handlePasswordField}/><img src={eyeSrc} className="eyelog" onClick = {handlePasswordSee}/><br/>
             <input type="checkbox" id="remember" className="remember"/><label class="rememberlabel" for="remember"><p>Remember Me</p></label>
             <br/>
             <button type="submit">Login!</button>

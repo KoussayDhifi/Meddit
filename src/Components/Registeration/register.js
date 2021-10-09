@@ -12,7 +12,9 @@ const Register = () => {
   const [passwordField,setPasswordField] = useState('')
   const [conPasswordField,setConPasswordField] = useState('')
   const [dateField,setDateField] = useState("yyyy-mm-dd")
-
+  const [eyeSrc,setEyeSrc] = useState('/eye/view.png')
+  const [seePassword,setSeePassword] = useState(false)
+  const [passwordType,setPasswordType] = useState('password')
   //Functions for handling
   const handleChangeRadio = () => {
     if (document.getElementById("upload").checked)
@@ -50,9 +52,42 @@ const Register = () => {
     setDateField(e.target.value);
   }
 
+  const handlePasswordSee = () => {
+    if (seePassword)
+    {
+      setSeePassword(false)
+      setPasswordType('password')
+      setEyeSrc('/eye/view.png')
+    }else if (seePassword == false)
+    {
+      setSeePassword(true)
+      setPasswordType('text')
+      setEyeSrc('/eye/visibility.png')
+    }
+  }
+
+  //Calling API
+
+  const create_account = (e) =>{
+    e.preventDefault()
+    fetch("/create_account",{
+    method:'POST',
+    body:JSON.stringify({
+      'name':nameField,
+      'email':emailField,
+      'password':passwordField,
+
+    })
+    })
+  }
+
+
+
+
+
   return(
     <div className="Register">
-      <form>
+      <form onSubmit={create_account}>
         <div className="title">
           <h1><Link to="/login"><a>Login</a></Link>|<Link to="/register"><a>Register</a></Link></h1>
         </div>
@@ -61,9 +96,9 @@ const Register = () => {
         <label for="email">Email:</label><br/>
         <input type="email" id="email" className="email" placeHolder="Email" value={emailField} onChange={handleEmailChange}/><br/>
         <label for="p1">Passowrd:</label><br/>
-        <input type="password" id="p1" className="p1" placeHolder="Password" value={passwordField} onChange={handlePasswordField}/><img src='/eye/view.png' className="eye"/><br/>
+        <input type={passwordType} id="p1" className="p1" placeHolder="Password" value={passwordField} onChange={handlePasswordField}/><img src={eyeSrc} onClick={handlePasswordSee} className="eyereg"/><br/>
         <label for="p2">Confirm Password:</label><br/>
-        <input type="password" id="p2" className="p2" placeHolder="Confirm Password" value={conPasswordField} onChange={handleConPasswordField}/><br/>
+        <input type={passwordType} id="p2" className="p2" placeHolder="Confirm Password" value={conPasswordField} onChange={handleConPasswordField}/><br/>
         <label for="date">Date of birth:</label><br/>
         <input type="date" id="date" className="date" value={dateField} onChange={handleDateField}/><br/>
         <label for="date">Profile Pic:</label><br/>
