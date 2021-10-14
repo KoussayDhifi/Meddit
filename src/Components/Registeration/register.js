@@ -15,6 +15,8 @@ const Register = () => {
   const [eyeSrc,setEyeSrc] = useState('/eye/view.png')
   const [seePassword,setSeePassword] = useState(false)
   const [passwordType,setPasswordType] = useState('password')
+  const [pfpPath,setPfpPath] = useState("/Pfps/default.jpg")
+  const [pfp,SetPfp] = useState();
   //Functions for handling
   const handleChangeRadio = () => {
     if (document.getElementById("upload").checked)
@@ -28,6 +30,7 @@ const Register = () => {
         setStyle({display:'none'})
         setCheckedUpload('')
         setCheckedDefault('checked')
+        SetPfp()
 
     }
   }
@@ -66,19 +69,24 @@ const Register = () => {
     }
   }
 
+  const handlePfpChange = (e) => {
+    SetPfp(e.target.files[0]);
+  }
+
   //Calling API
 
   const create_account = (e) =>{
     e.preventDefault()
+    const formData = new FormData();
+    formData.append('name',nameField)
+    formData.append('email',emailField)
+    formData.append('password1',passwordField)
+    formData.append('password2',conPasswordField)
+    formData.append('pfp',pfp)
     fetch("/create_account",{
     method:'POST',
-    body:JSON.stringify({
-      'name':nameField,
-      'email':emailField,
-      'password':passwordField,
-
-    })
-    })
+    body:formData
+  }).then(res=>res.json()).then(data=>console.log(data))
   }
 
 
@@ -92,20 +100,20 @@ const Register = () => {
           <h1><Link to="/login"><a>Login</a></Link>|<Link to="/register"><a>Register</a></Link></h1>
         </div>
         <label for="name">Name:</label><br/>
-        <input type="text" id="name" className="name" placeHolder="Name" value={nameField} onChange={handleNameChange}/><br/>
+        <input type="text" id="name" className="name" placeHolder="Name" value={nameField} onChange={handleNameChange} required/><br/>
         <label for="email">Email:</label><br/>
-        <input type="email" id="email" className="email" placeHolder="Email" value={emailField} onChange={handleEmailChange}/><br/>
+        <input type="email" id="email" className="email" placeHolder="Email" value={emailField} onChange={handleEmailChange} required/><br/>
         <label for="p1">Passowrd:</label><br/>
-        <input type={passwordType} id="p1" className="p1" placeHolder="Password" value={passwordField} onChange={handlePasswordField}/><img src={eyeSrc} onClick={handlePasswordSee} className="eyereg"/><br/>
+        <input type={passwordType} id="p1" className="p1" placeHolder="Password" value={passwordField} onChange={handlePasswordField} required/><img src={eyeSrc} onClick={handlePasswordSee} className="eyereg"/><br/>
         <label for="p2">Confirm Password:</label><br/>
-        <input type={passwordType} id="p2" className="p2" placeHolder="Confirm Password" value={conPasswordField} onChange={handleConPasswordField}/><br/>
+        <input type={passwordType} id="p2" className="p2" placeHolder="Confirm Password" value={conPasswordField} onChange={handleConPasswordField} required/><br/>
         <label for="date">Date of birth:</label><br/>
-        <input type="date" id="date" className="date" value={dateField} onChange={handleDateField}/><br/>
+        <input type="date" id="date" className="date" value={dateField} onChange={handleDateField} required/><br/>
         <label for="date">Profile Pic:</label><br/>
         <img src="/Pfps/default.jpg"/><br/>
         <input type="radio" id="default" name='pfp' checked={checkedDefault} onChange={handleChangeRadio}  /><label class="default" for="default"><p>Default</p></label>
         <input type="radio" id="upload" name='pfp' checked={checkedUpload} onChange={handleChangeRadio}/><label class="upload" for="upload"><p>Upload</p></label><br/>
-        <input type="file" id="file" style={style}/><br/>
+        <input type="file" id="file" style={style} onChange = {handlePfpChange}/><br/>
         <input type="submit" value="Create an account!"/>
 
 
