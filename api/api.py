@@ -8,6 +8,10 @@ api.secret_key = "fdkjfkjsdkljkf"
 api.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg','tiff'}
 api.config['UPLOAD_FOLDER'] = "../public/Pfps"
+
+port = 465
+
+
 class Users(db.Model):
     _id = db.Column(db.Integer,primary_key=True)
     UserName = db.Column(db.String(50),nullable=False)
@@ -23,6 +27,8 @@ def create_account():
     email = request.form['email']
     password = request.form['password1']
     conPassword = request.form['password2']
+    date = request.form["date"]
+    print(type(date))
     try:
         pfp = request.files['pfp']
         pfp.save(os.path.join(api.config['UPLOAD_FOLDER'], pfp.filename))
@@ -32,9 +38,9 @@ def create_account():
 
     found_mail = Users.query.filter_by(email=email).first()
     if found_mail:
-        return {"Error":"This email is used"},403
+        return {"Done":"This email is used"},409
     if password != conPassword:
-        return {"Error":"Make sure that both of password fields are the same"}
+        return {"Done":"Make sure that both of password fields are the same"}
     newUser = Users(UserName=name,email=email,password=password,Pfp_path=path,isVerified=False)
     db.session.add(newUser)
     db.session.commit()

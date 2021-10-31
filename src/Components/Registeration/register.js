@@ -1,6 +1,7 @@
 import './register.css'
 import {Link} from 'react-router-dom'
 import {useState} from 'react';
+import { useHistory } from "react-router-dom";
 
 const Register = () => {
   //states
@@ -17,6 +18,7 @@ const Register = () => {
   const [passwordType,setPasswordType] = useState('password')
   const [pfpPath,setPfpPath] = useState("/Pfps/default.jpg")
   const [pfp,SetPfp] = useState();
+  const [msg,setMsg] = useState("");
   //Functions for handling
   const handleChangeRadio = () => {
     if (document.getElementById("upload").checked)
@@ -44,11 +46,12 @@ const Register = () => {
   }
 
   const handlePasswordField = (e) => {
-    setPasswordField(e.target.value);
+  	setPasswordField(e.target.value);
   }
 
   const handleConPasswordField = (e) => {
-    setConPasswordField(e.target.value);
+ 
+	setConPasswordField(e.target.value);
   }
 
   const handleDateField = (e) => {
@@ -73,9 +76,14 @@ const Register = () => {
     SetPfp(e.target.files[0]);
   }
 
+  
+
+
+  //history
+  let history = useHistory();
   //Calling API
 
-  const create_account = (e) =>{
+  const Create_account = (e) =>{
     e.preventDefault()
     const formData = new FormData();
     formData.append('name',nameField)
@@ -83,10 +91,16 @@ const Register = () => {
     formData.append('password1',passwordField)
     formData.append('password2',conPasswordField)
     formData.append('pfp',pfp)
+    formData.append('date',dateField)
+    setNameField("")
+    setEmailField("")
+    setPasswordField("")
+    setConPasswordField("")
     fetch("/create_account",{
     method:'POST',
     body:formData
-  }).then(res=>res.json()).then(data=>console.log(data))
+  }).then(res=>res.json()).then(data=>{setMsg(data.Done)
+    })
   }
 
 
@@ -95,18 +109,19 @@ const Register = () => {
 
   return(
     <div className="Register">
-      <form onSubmit={create_account}>
+      <form onSubmit={Create_account}>
         <div className="title">
           <h1><Link to="/login"><a>Login</a></Link>|<Link to="/register"><a>Register</a></Link></h1>
         </div>
+        <small>{msg}</small><br/>
         <label for="name">Name:</label><br/>
         <input type="text" id="name" className="name" placeHolder="Name" value={nameField} onChange={handleNameChange} required/><br/>
         <label for="email">Email:</label><br/>
         <input type="email" id="email" className="email" placeHolder="Email" value={emailField} onChange={handleEmailChange} required/><br/>
         <label for="p1">Passowrd:</label><br/>
-        <input type={passwordType} id="p1" className="p1" placeHolder="Password" value={passwordField} onChange={handlePasswordField} required/><img src={eyeSrc} onClick={handlePasswordSee} className="eyereg"/><br/>
+        <input type={passwordType} id="p1" className="p1" placeHolder="Password" value={passwordField} onInput={handlePasswordField} required/><img src={eyeSrc}  className="eyereg" /><br/>
         <label for="p2">Confirm Password:</label><br/>
-        <input type={passwordType} id="p2" className="p2" placeHolder="Confirm Password" value={conPasswordField} onChange={handleConPasswordField} required/><br/>
+        <input type={passwordType} id="p2" className="p2" placeHolder="Confirm Password" value={conPasswordField} onInput={handleConPasswordField} required  /><br/>
         <label for="date">Date of birth:</label><br/>
         <input type="date" id="date" className="date" value={dateField} onChange={handleDateField} required/><br/>
         <label for="date">Profile Pic:</label><br/>
