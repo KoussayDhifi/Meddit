@@ -1,6 +1,7 @@
 from flask import Flask,request
 from flask_sqlalchemy import SQLAlchemy
 import os
+from datetime import date
 
 api = Flask(__name__)
 db = SQLAlchemy(api)
@@ -27,8 +28,26 @@ def create_account():
     email = request.form['email']
     password = request.form['password1']
     conPassword = request.form['password2']
-    date = request.form["date"]
-    print(type(date))
+    date1 = request.form["date"]
+    year = date1[0:4]
+    month = date1 [5:7]
+    day = date1[8::]
+    month = int(month)
+    year = int(year)
+    day = int(day)
+    current = date.today()
+    cm = current.month
+    cy = current.year
+    cd = current.day
+    age = cy-year
+
+    if (month>=cm) and (day>=cd):
+        age-=1
+    if age<13:
+        return {"Done":"You should be at leas 13 Years to use this website :)"}
+
+
+
     try:
         pfp = request.files['pfp']
         pfp.save(os.path.join(api.config['UPLOAD_FOLDER'], pfp.filename))
