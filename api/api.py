@@ -6,7 +6,7 @@ from datetime import date
 api = Flask(__name__)
 db = SQLAlchemy(api)
 api.secret_key = "fdkjfkjsdkljkf"
-api.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+api.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db2.sqlite3'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg','tiff'}
 api.config['UPLOAD_FOLDER'] = "../public/Pfps"
 
@@ -19,6 +19,7 @@ class Users(db.Model):
     email = db.Column(db.String(150),nullable=False,unique=True)
     password = db.Column(db.String(30),nullable=False)
     Pfp_path = db.Column(db.String(320),nullable=False)
+    date = db.Column(db.String(11),nullable=False)
     isVerified = db.Column(db.Boolean(),default=False)
 
 
@@ -60,12 +61,27 @@ def create_account():
         return {"Done":"This email is used"},409
     if password != conPassword:
         return {"Done":"Make sure that both of password fields are the same"}
-    newUser = Users(UserName=name,email=email,password=password,Pfp_path=path,isVerified=False)
+    newUser = Users(UserName=name,email=email,password=password,Pfp_path=path,date=date1,isVerified=False)
     db.session.add(newUser)
     db.session.commit()
 
 
     return {"Done":"Account Created succsessfully"},200
+
+@api.route("/login",methods=["GET","POST"])
+def login():
+    
+    data = request.get_json(force=True)
+    email = data["email"]
+    password = data["password"]
+    remember = data["remember"]
+    print(email,password,remember) 
+    
+    return {"Haha":"Yes"}
+
+
+
+
 
 
 if __name__ == "__main__":
