@@ -55,7 +55,7 @@ const Login = () => {
 	"password":PasswordField,
 	"remember":rememberMe
 	})
-	}).catch(err=>console.log(err))
+	}).then(res=>res.json()).then(data => console.log(data))
 
 
     }

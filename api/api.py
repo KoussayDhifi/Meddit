@@ -75,8 +75,16 @@ def login():
     email = data["email"]
     password = data["password"]
     remember = data["remember"]
-    print(email,password,remember) 
+    found_email = Users.query.filter_by(email=email).first()
+    if (found_email):
+        if (password == found_email.password):
+            return {"Done":"Found user"}
+        else:
+            return {"Done":"Password is wrong"}
+    else:
+        return {"Done":"Email is wrong"}
     
+
     return {"Haha":"Yes"}
 
 
