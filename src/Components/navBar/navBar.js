@@ -37,7 +37,7 @@ const NavBar = () => {
         </div>
       </div>
       <div className="profile-edit">
-        <img src="/Pfps/default.jpg" className="pfp"/>
+        <img src={sessionStorage.getItem("PfPath")} className="pfp"/>
       </div>
       <br/>
       <hr/>
@@ -50,8 +50,8 @@ const NavBar = () => {
           <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">What's new</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="#">Logout</a></li>
+           
 
           </ul>
       </nav>

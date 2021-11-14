@@ -1,9 +1,11 @@
-from flask import Flask,request
+from flask import Flask,request,jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import create_access_token,JWTManager
 import os
 from datetime import date
 
 api = Flask(__name__)
+jwt = JWTManager(api)
 db = SQLAlchemy(api)
 api.secret_key = "fdkjfkjsdkljkf"
 api.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db2.sqlite3'
@@ -52,9 +54,9 @@ def create_account():
     try:
         pfp = request.files['pfp']
         pfp.save(os.path.join(api.config['UPLOAD_FOLDER'], pfp.filename))
-        path = f"../public/Pfps/{pfp.filename}"
+        path = f"/Pfps/{pfp.filename}"
     except Exception:
-        path = "../public/Pfps/default.jpg"
+        path = "/Pfps/default.jpg"
 
     found_mail = Users.query.filter_by(email=email).first()
     if found_mail:
@@ -78,11 +80,13 @@ def login():
     found_email = Users.query.filter_by(email=email).first()
     if (found_email):
         if (password == found_email.password):
-            return {"Done":"Found user"}
+            access_token = create_access_token(identity=email)
+            print(found_email.Pfp_path)
+            return {"access_token":access_token,"name":found_email.UserName,"pfp":found_email.Pfp_path,"isVerified":found_email.isVerified}
         else:
-            return {"Done":"Password is wrong"}
+            return {"Done":"Password is wrong"},401
     else:
-        return {"Done":"Email is wrong"}
+        return {"Done":"Email is wrong"},401
     
 
     return {"Haha":"Yes"}

@@ -1,16 +1,19 @@
 import './login.css'
-import {Link} from 'react-router-dom'
+import {Link,useHistory} from 'react-router-dom'
 import {useState} from 'react'
+
 
 const Login = () => {
 
-    //States
+    //Hooks
     const [EmailField,setEmailField] = useState('')
     const [PasswordField,setPasswordField] = useState('')
     const [seePassword,setSeePassword] = useState(false)
     const [passwordType,setPasswordType] = useState('password')
     const [eyeSrc,setEyeSrc] = useState('/eye/view.png')
     const [rememberMe,setRememberMe] = useState(false)
+    const [msg,setMsg] = useState("")
+    const history = useHistory()
     //Functions for handling
 
     const handleEmailField = (e) => {
@@ -55,7 +58,31 @@ const Login = () => {
 	"password":PasswordField,
 	"remember":rememberMe
 	})
-	}).then(res=>res.json()).then(data => console.log(data))
+	}).then(res=>res.json()).then(data => {setMsg(data.Done)
+	if (rememberMe)
+		{
+	localStorage.setItem("at",data.access_token)
+	localStorage.setItem("username",data.name)
+	localStorage.setItem("PfPath",data.pfp)
+	localStorage.setItem("isVer",data.isVerified)
+	}else
+		{
+			sessionStorage.setItem("at",data.access_token)
+			sessionStorage.setItem("username",data.name)
+        		sessionStorage.setItem("PfPath",data.pfp)
+			sessionStorage.setItem("isVer",data.isVerified)
+		}
+	if ((localStorage.getItem("at")!== null) || (sessionStorage.getItem("at") !== null))
+		{	try{
+			history.push("/")
+			}catch(err)
+			{
+				console.error(err)
+			}
+		}
+	
+	}
+	)
 
 
     }
@@ -65,6 +92,7 @@ const Login = () => {
             <div className="title">
               <h1><Link to="/login"><a>Login</a></Link>|<Link to="/register"><a>Register</a></Link></h1>
             </div>
+	      <small>{msg}</small>
             <br/>
             <label for="email">Email:</label><br/>
             <input type="email" id="email" className="email" required value={EmailField} placeHolder="Email" onChange={handleEmailField}/><br/>
